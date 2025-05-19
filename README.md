@@ -647,6 +647,65 @@ http://localhost:8080/users/17
 ```
 
 </details>
+<details><summary> 로그인 API</summary>
+
+# 로그인 API
+<p> URL : /user/login </p>
+    HTTP Method : POST </p>
+    설명 : 로그인 API 입니다. </p>
+
+## 요청
+
+### Body
+
+|키|타입|설명|
+|:---:|:---:|:---:|
+|userName|String|유저 이름|
+|password|String|비밀번호|
+
+#### 예시
+```
+{
+  "userName": "사용자1",
+  "password": "password1"
+}
+```
+
+
+## 응답
+
+### 성공 시
+
+|키|타입|설명|
+|:---:|:---:|:---:|
+|userId|long|유저 식별자|
+|userName|String|유저 이름|
+
+#### 예시
+```
+{
+  "userId": 17,
+  "userName": "사용자1"
+}
+```
+
+### 실패 시
+
+|키|타입|설명|
+|:---:|:---:|:---:|
+|code|int|HTTP코드|
+|message|String|메시지|
+
+#### 예시
+```
+{
+  "code": 401,
+  "message": "잘못된 비밀번호입니다.
+}
+```
+
+</details>
+
 </details>
 
 
