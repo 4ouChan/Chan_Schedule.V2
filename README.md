@@ -650,7 +650,7 @@ http://localhost:8080/users/17
 <details><summary> 로그인 API</summary>
 
 # 로그인 API
-<p> URL : /user/login </p>
+<p> URL : /users/login </p>
     HTTP Method : POST </p>
     설명 : 로그인 API 입니다. </p>
 
