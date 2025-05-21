@@ -4,11 +4,7 @@ import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.entity.ScheduleEntity;
 import com.example.schedulev2.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

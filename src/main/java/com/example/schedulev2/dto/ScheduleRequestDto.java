@@ -14,3 +14,4 @@ public class ScheduleRequestDto {
         this.schedule = schedule;
     }
 }
+

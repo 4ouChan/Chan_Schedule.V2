@@ -17,6 +17,7 @@ public class ScheduleEntity extends TimeEntity {
 
     private String schedule;
 
+
     public ScheduleEntity() {}
 
     public ScheduleEntity(String title, String schedule) {
