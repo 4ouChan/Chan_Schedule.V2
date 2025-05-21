@@ -234,7 +234,7 @@ http://localhost:8080/schedules/22
  {
   "title": "수정된 제목",
   "schedule": "수정된 일정 내용",
-  "password": "일정 생성 시 입력한 비밀번호"
+  "password": "유저저 비밀번호"
 }
  ```
 
