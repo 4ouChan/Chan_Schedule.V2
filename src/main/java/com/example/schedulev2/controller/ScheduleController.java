@@ -5,10 +5,9 @@ import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/schedules")
@@ -27,5 +26,13 @@ public class ScheduleController {
                 scheduleService.createSchedule(dto.getTitle(), dto.getSchedule());
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ScheduleResponseDto>> findAllScheduleAPI() {
+
+        List<ScheduleResponseDto> allSchedule = scheduleService.findAllSchedule();
+
+        return new ResponseEntity<>(allSchedule, HttpStatus.OK);
     }
 }

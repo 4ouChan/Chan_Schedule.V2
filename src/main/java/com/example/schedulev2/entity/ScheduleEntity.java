@@ -10,6 +10,7 @@ public class ScheduleEntity extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "scheduleId")
     private Long scheduleId;
 
     private String title;

@@ -5,6 +5,9 @@ import com.example.schedulev2.entity.ScheduleEntity;
 import com.example.schedulev2.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ScheduleService {
 
@@ -30,5 +33,13 @@ public class ScheduleService {
         );
 
         return responseDto;
+    }
+
+    public List<ScheduleResponseDto> findAllSchedule() {
+
+        return scheduleRepository.findAll()
+                .stream()
+                .map(ScheduleResponseDto::toDto)
+                .toList();
     }
 }
