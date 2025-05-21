@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 @Getter
 public class ScheduleResponseDto {
 
-    private final Long id;
+    private final Long userId;
+
+    private final Long scheduleId;
 
     private final String title;
 
@@ -19,23 +21,18 @@ public class ScheduleResponseDto {
     private LocalDateTime updateDate;
 
 
-    public ScheduleResponseDto(Long id, String title, String schedule, LocalDateTime createDate, LocalDateTime updateDate) {
-        this.id = id;
+    public ScheduleResponseDto(Long userId, Long scheduleId, String title, String schedule, LocalDateTime createDate, LocalDateTime updateDate) {
+        this.userId = userId;
+        this.scheduleId = scheduleId;
         this.title = title;
         this.schedule = schedule;
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
 
-    public ScheduleResponseDto (Long id, String title, String schedule, LocalDateTime updateDate) {
-        this.id = id;
-        this.title = title;
-        this.schedule = schedule;
-        this.updateDate = updateDate;
-    }
-
     public static ScheduleResponseDto toDto(ScheduleEntity scheduleEntity) {
         return new ScheduleResponseDto(
+                scheduleEntity.getUserEntity().getUserId(),
                 scheduleEntity.getScheduleId(),
                 scheduleEntity.getTitle(),
                 scheduleEntity.getSchedule(),

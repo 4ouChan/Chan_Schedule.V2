@@ -10,12 +10,16 @@ public class ScheduleEntity extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "scheduleId")
+    @Column(name = "schedule_id")
     private Long scheduleId;
 
     private String title;
 
     private String schedule;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
 
     public ScheduleEntity() {}
@@ -29,5 +33,13 @@ public class ScheduleEntity extends TimeEntity {
     public void setSchedule(String title, String schedule) {
         this.title = title;
         this.schedule = schedule;
+    }
+
+//    public void setUserEntity() {
+//        getUserEntity().getUserId();
+//    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 }
