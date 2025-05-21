@@ -25,4 +25,8 @@ public class ScheduleEntity extends TimeEntity {
         this.schedule = schedule;
     }
 
+    public void setSchedule(String title, String schedule) {
+        this.title = title;
+        this.schedule = schedule;
+    }
 }

@@ -3,6 +3,7 @@ package com.example.schedulev2.service;
 import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.entity.ScheduleEntity;
 import com.example.schedulev2.repository.ScheduleRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -61,6 +62,7 @@ public class ScheduleService {
         );
     }
 
+    @Transactional
     public ScheduleResponseDto updateSchedule(Long scheduleId, String title, String schedule) {
 
         ScheduleEntity scheduleEntity = new ScheduleEntity(title, schedule);
@@ -69,10 +71,24 @@ public class ScheduleService {
 
         ScheduleEntity updateSchedule = checkSchedule.get();
 
-        updateSchedule = scheduleRepository.save(scheduleEntity);
+        updateSchedule.setSchedule(scheduleEntity.getTitle(), scheduleEntity.getSchedule());
 
-        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(updateSchedule.getScheduleId(), updateSchedule.getTitle(), updateSchedule.getSchedule(), updateSchedule.getUpdateDate());
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(updateSchedule.getScheduleId(), updateSchedule.getTitle(), updateSchedule.getSchedule(), updateSchedule.getCreateDate(), updateSchedule.getUpdateDate());
 
         return scheduleResponseDto;
+    }
+
+    public List<ScheduleResponseDto> deleteSchedule(Long scheduleId) {
+
+        Optional<ScheduleEntity> findByIdSchedule = scheduleRepository.findById(scheduleId);
+
+        ScheduleEntity scheduleEntity = findByIdSchedule.get();
+
+        scheduleRepository.delete(scheduleEntity);
+
+        return scheduleRepository.findAll()
+                .stream()
+                .map(ScheduleResponseDto::toDto)
+                .toList();
     }
 }
