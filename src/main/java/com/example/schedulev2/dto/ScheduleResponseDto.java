@@ -28,6 +28,13 @@ public class ScheduleResponseDto {
         this.updateDate = updateDate;
     }
 
+    public ScheduleResponseDto (Long id, String title, String schedule, LocalDateTime updateDate) {
+        this.id = id;
+        this.title = title;
+        this.schedule = schedule;
+        this.updateDate = updateDate;
+    }
+
     public static ScheduleResponseDto toDto(ScheduleEntity scheduleEntity) {
         return new ScheduleResponseDto(
                 scheduleEntity.getScheduleId(),

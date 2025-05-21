@@ -60,4 +60,19 @@ public class ScheduleService {
                 responseDto.getUpdateDate()
         );
     }
+
+    public ScheduleResponseDto updateSchedule(Long scheduleId, String title, String schedule) {
+
+        ScheduleEntity scheduleEntity = new ScheduleEntity(title, schedule);
+
+        Optional<ScheduleEntity> checkSchedule = scheduleRepository.findById(scheduleId);
+
+        ScheduleEntity updateSchedule = checkSchedule.get();
+
+        updateSchedule = scheduleRepository.save(scheduleEntity);
+
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(updateSchedule.getScheduleId(), updateSchedule.getTitle(), updateSchedule.getSchedule(), updateSchedule.getUpdateDate());
+
+        return scheduleResponseDto;
+    }
 }
