@@ -537,7 +537,7 @@ http://localhost:8080/users/17
 ```
  {
   "userName": "수정된 사용자 이름",
-  "password": "유저 생성 시 입력한 비밀번호"
+  "password": "유저 비밀번호"
 }
  ```
 
