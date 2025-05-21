@@ -14,5 +14,7 @@ CREATE TABLE schedules(
   title VARCHAR(250) COMMENT '일정 제목',
   schedule VARCHAR(5000) COMMENT '일정 내용',
   create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '생성 시간',
-  update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '수정 시간'
+  update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '수정 시간',
+  user_id BIGINT COMMENT '유저 식별자',
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
