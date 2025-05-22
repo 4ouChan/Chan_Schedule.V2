@@ -35,5 +35,9 @@ public class ScheduleEntity extends TimeEntity {
         this.schedule = schedule;
     }
 
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
 
 }

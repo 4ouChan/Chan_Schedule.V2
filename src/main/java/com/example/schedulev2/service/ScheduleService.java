@@ -2,9 +2,14 @@ package com.example.schedulev2.service;
 
 import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.entity.ScheduleEntity;
+import com.example.schedulev2.entity.UserEntity;
 import com.example.schedulev2.repository.ScheduleRepository;
+import com.example.schedulev2.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -12,27 +17,41 @@ import java.util.Optional;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
-    public ScheduleService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository, UserRepository userRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.userRepository = userRepository;
     }
 
 
-    public ScheduleResponseDto createSchedule(String title, String schedule) {
+    public ScheduleResponseDto createSchedule(Long userId, String title, String schedule) {
 
-        ScheduleEntity createSchedule = new ScheduleEntity(title, schedule);
+        Optional<UserEntity> findUser = userRepository.findById(userId);
+        UserEntity userEntity = findUser.get();
 
-        scheduleRepository.save(createSchedule);
+        if (userEntity != null) {
 
-        ScheduleResponseDto responseDto = new ScheduleResponseDto(
-                createSchedule.getScheduleId(),
-                createSchedule.getTitle(),
-                createSchedule.getSchedule(),
-                createSchedule.getCreateDate(),
-                createSchedule.getUpdateDate()
-        );
+            ScheduleEntity createSchedule = new ScheduleEntity(title, schedule);
 
-        return responseDto;
+            createSchedule.setUserEntity(userEntity);
+
+            scheduleRepository.save(createSchedule);
+
+            ScheduleResponseDto responseDto = new ScheduleResponseDto(
+                    createSchedule.getScheduleId(),
+                    createSchedule.getTitle(),
+                    createSchedule.getSchedule(),
+                    createSchedule.getCreateDate(),
+                    createSchedule.getUpdateDate()
+            );
+
+            return responseDto;
+        } else {
+
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     public List<ScheduleResponseDto> findAllSchedule() {

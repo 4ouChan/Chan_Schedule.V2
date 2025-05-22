@@ -22,7 +22,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> createScheduleAPI(@RequestBody ScheduleRequestDto dto) {
 
         ScheduleResponseDto scheduleResponseDto =
-                scheduleService.createSchedule(dto.getTitle(), dto.getSchedule());
+                scheduleService.createSchedule(dto.getUserId(), dto.getTitle(), dto.getSchedule());
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
