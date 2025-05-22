@@ -35,11 +35,5 @@ public class ScheduleEntity extends TimeEntity {
         this.schedule = schedule;
     }
 
-//    public void setUserEntity() {
-//        getUserEntity().getUserId();
-//    }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
 }

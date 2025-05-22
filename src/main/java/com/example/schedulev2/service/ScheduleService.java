@@ -25,7 +25,6 @@ public class ScheduleService {
         scheduleRepository.save(createSchedule);
 
         ScheduleResponseDto responseDto = new ScheduleResponseDto(
-                createSchedule.getUserEntity().getUserId(),
                 createSchedule.getScheduleId(),
                 createSchedule.getTitle(),
                 createSchedule.getSchedule(),
@@ -40,7 +39,7 @@ public class ScheduleService {
 
         return scheduleRepository.findAll()
                 .stream()
-                .map(ScheduleResponseDto::toDto)
+                .map(ScheduleResponseDto::toScheduleDto)
                 .toList();
     }
 
@@ -51,7 +50,6 @@ public class ScheduleService {
         ScheduleEntity responseDto = scheduleResponseDto.get();
 
         return new ScheduleResponseDto(
-                responseDto.getUserEntity().getUserId(),
                 responseDto.getScheduleId(),
                 responseDto.getTitle(),
                 responseDto.getSchedule(),
@@ -72,7 +70,6 @@ public class ScheduleService {
         updateSchedule.setSchedule(scheduleEntity.getTitle(), scheduleEntity.getSchedule());
 
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(
-                updateSchedule.getUserEntity().getUserId(),
                 updateSchedule.getScheduleId(),
                 updateSchedule.getTitle(),
                 updateSchedule.getSchedule(),
@@ -93,7 +90,7 @@ public class ScheduleService {
 
         return scheduleRepository.findAll()
                 .stream()
-                .map(ScheduleResponseDto::toDto)
+                .map(ScheduleResponseDto::toScheduleDto)
                 .toList();
     }
 }

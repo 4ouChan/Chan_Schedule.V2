@@ -1,5 +1,6 @@
 package com.example.schedulev2.dto;
 
+import com.example.schedulev2.entity.UserEntity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -31,4 +32,15 @@ public class UserResponseDto {
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
+
+    public static UserResponseDto toUserDto(UserEntity userEntity) {
+        return new UserResponseDto(
+                userEntity.getUserId(),
+                userEntity.getUserName(),
+                userEntity.getEmail(),
+                userEntity.getCreateDate(),
+                userEntity.getUpdateDate()
+        );
+    }
+
 }
