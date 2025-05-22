@@ -52,6 +52,13 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<List<UserResponseDto>> deleteUserAPI(@PathVariable Long userId) {
+
+        List<UserResponseDto> userResponseDtos = userService.deleteUser(userId);
+
+        return new ResponseEntity<>(userResponseDtos, HttpStatus.OK);
+    }
 
 
 }

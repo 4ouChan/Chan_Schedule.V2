@@ -48,9 +48,9 @@ public class UserService {
     }
 
     public UserResponseDto findByIdUser(Long userId) {
-        Optional<UserEntity> userResponseDto = userRepository.findById(userId);
+        Optional<UserEntity> findByIdUser = userRepository.findById(userId);
 
-        UserEntity responseDto = userResponseDto.get();
+        UserEntity responseDto = findByIdUser.get();
 
         return new UserResponseDto(
                 responseDto.getUserId(),
@@ -81,5 +81,19 @@ public class UserService {
         UpdateUserPasswordResponseDto updateUserPasswordResponseDto = new UpdateUserPasswordResponseDto(message);
 
         return updateUserPasswordResponseDto;
+    }
+
+    public List<UserResponseDto> deleteUser(Long userId) {
+
+        Optional<UserEntity> findByIdUser = userRepository.findById(userId);
+
+        UserEntity userEntity = findByIdUser.get();
+
+        userRepository.delete(userEntity);
+
+        return userRepository.findAll()
+                .stream()
+                .map(UserResponseDto::toUserDto)
+                .toList();
     }
 }
