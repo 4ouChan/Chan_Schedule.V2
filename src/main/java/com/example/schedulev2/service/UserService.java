@@ -1,9 +1,7 @@
 package com.example.schedulev2.service;
 
-import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.dto.UpdateUserPasswordResponseDto;
 import com.example.schedulev2.dto.UserResponseDto;
-import com.example.schedulev2.entity.ScheduleEntity;
 import com.example.schedulev2.entity.UserEntity;
 import com.example.schedulev2.repository.UserRepository;
 import jakarta.transaction.Transactional;
