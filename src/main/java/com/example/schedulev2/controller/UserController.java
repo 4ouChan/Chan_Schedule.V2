@@ -1,5 +1,6 @@
 package com.example.schedulev2.controller;
 
+import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.dto.UserRequestDto;
 import com.example.schedulev2.dto.UserResponseDto;
 import com.example.schedulev2.service.UserService;
@@ -33,6 +34,14 @@ public class UserController {
         List<UserResponseDto> allSchedule = userService.findAllSchedule();
 
         return new ResponseEntity<>(allSchedule, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponseDto> findByIdScheduleAPI(@PathVariable Long userId) {
+
+        UserResponseDto byIdUser = userService.findByIdUser(userId);
+
+        return new ResponseEntity<>(byIdUser, HttpStatus.OK);
     }
 
 }

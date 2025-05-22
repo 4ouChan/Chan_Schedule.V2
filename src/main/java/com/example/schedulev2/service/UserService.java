@@ -1,11 +1,14 @@
 package com.example.schedulev2.service;
 
+import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.dto.UserResponseDto;
+import com.example.schedulev2.entity.ScheduleEntity;
 import com.example.schedulev2.entity.UserEntity;
 import com.example.schedulev2.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -38,5 +41,19 @@ public class UserService {
                 .stream()
                 .map(UserResponseDto::toUserDto)
                 .toList();
+    }
+
+    public UserResponseDto findByIdUser(Long userId) {
+        Optional<UserEntity> userResponseDto = userRepository.findById(userId);
+
+        UserEntity responseDto = userResponseDto.get();
+
+        return new UserResponseDto(
+                responseDto.getUserId(),
+                responseDto.getUserName(),
+                responseDto.getEmail(),
+                responseDto.getCreateDate(),
+                responseDto.getUpdateDate()
+        );
     }
 }
