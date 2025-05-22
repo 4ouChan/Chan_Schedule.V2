@@ -1,8 +1,6 @@
 package com.example.schedulev2.controller;
 
-import com.example.schedulev2.dto.ScheduleResponseDto;
-import com.example.schedulev2.dto.UserRequestDto;
-import com.example.schedulev2.dto.UserResponseDto;
+import com.example.schedulev2.dto.*;
 import com.example.schedulev2.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +40,16 @@ public class UserController {
         UserResponseDto byIdUser = userService.findByIdUser(userId);
 
         return new ResponseEntity<>(byIdUser, HttpStatus.OK);
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<UpdateUserPasswordResponseDto> updateUserPasswordAPI(
+            @PathVariable Long userId,
+            @RequestBody UpdateUserPasswordRequestDto dto
+    ) {
+        UpdateUserPasswordResponseDto userResponseDto = userService.updateUser(userId, dto.getUserPassword(), dto.getNewUserPassword());
+
+        return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
 

@@ -3,8 +3,10 @@ package com.example.schedulev2.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserEntity extends TimeEntity {
@@ -26,6 +28,8 @@ public class UserEntity extends TimeEntity {
         this.email = email;
         this.password = password;
     }
+
+
 
 
 }
