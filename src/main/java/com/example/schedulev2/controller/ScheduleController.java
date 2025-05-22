@@ -2,6 +2,7 @@ package com.example.schedulev2.controller;
 
 import com.example.schedulev2.dto.ScheduleRequestDto;
 import com.example.schedulev2.dto.ScheduleResponseDto;
+import com.example.schedulev2.dto.UpdateScheduleRequestDto;
 import com.example.schedulev2.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,10 +47,10 @@ public class ScheduleController {
     @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateScheduleAPI(
             @PathVariable Long scheduleId,
-            @RequestBody ScheduleRequestDto dto
+            @RequestBody UpdateScheduleRequestDto dto
     ) {
         ScheduleResponseDto scheduleResponseDto =
-                scheduleService.updateSchedule(scheduleId, dto.getTitle(), dto.getSchedule()
+                scheduleService.updateSchedule(scheduleId, dto.getTitle(), dto.getSchedule(), dto.getPassword()
                 );
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);

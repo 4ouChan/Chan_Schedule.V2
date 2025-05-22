@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,26 +80,31 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponseDto updateSchedule(Long scheduleId, String title, String schedule) {
+    public ScheduleResponseDto updateSchedule(Long scheduleId, String title, String schedule, String password) {
 
-        ScheduleEntity scheduleEntity = new ScheduleEntity(title, schedule);
+        Optional<ScheduleEntity> findScheduleById = scheduleRepository.findById(scheduleId);
+        ScheduleEntity findSchedule = findScheduleById.get();
 
-        Optional<ScheduleEntity> checkSchedule = scheduleRepository.findById(scheduleId);
 
-        ScheduleEntity updateSchedule = checkSchedule.get();
 
-        updateSchedule.setSchedule(scheduleEntity.getTitle(), scheduleEntity.getSchedule());
+        if (password.equals(findSchedule.getUserEntity().getPassword())) {
 
-        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(
-                scheduleEntity.getUserEntity().getUserId(),
-                updateSchedule.getScheduleId(),
-                updateSchedule.getTitle(),
-                updateSchedule.getSchedule(),
-                updateSchedule.getCreateDate(),
-                updateSchedule.getUpdateDate()
-        );
+            findSchedule.setSchedule(title, schedule);
 
-        return scheduleResponseDto;
+            ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(
+                    findSchedule.getUserEntity().getUserId(),
+                    findSchedule.getScheduleId(),
+                    findSchedule.getTitle(),
+                    findSchedule.getSchedule(),
+                    findSchedule.getCreateDate(),
+                    findSchedule.getUpdateDate()
+
+            );
+
+            return scheduleResponseDto;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public List<ScheduleResponseDto> deleteSchedule(Long scheduleId) {
