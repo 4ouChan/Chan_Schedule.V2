@@ -1,12 +1,16 @@
 package com.example.schedulev2.dto;
 
 import com.example.schedulev2.entity.ScheduleEntity;
+import com.example.schedulev2.entity.UserEntity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
 public class ScheduleResponseDto {
+
+    private final Long userId;
+
     private final Long scheduleId;
 
     private final String title;
@@ -18,7 +22,8 @@ public class ScheduleResponseDto {
     private LocalDateTime updateDate;
 
 
-    public ScheduleResponseDto(Long scheduleId, String title, String schedule, LocalDateTime createDate, LocalDateTime updateDate) {
+    public ScheduleResponseDto(Long userId, Long scheduleId, String title, String schedule, LocalDateTime createDate, LocalDateTime updateDate) {
+        this.userId = userId;
         this.scheduleId = scheduleId;
         this.title = title;
         this.schedule = schedule;
@@ -28,6 +33,7 @@ public class ScheduleResponseDto {
 
     public static ScheduleResponseDto toScheduleDto(ScheduleEntity scheduleEntity) {
         return new ScheduleResponseDto(
+                scheduleEntity.getUserEntity().getUserId(),
                 scheduleEntity.getScheduleId(),
                 scheduleEntity.getTitle(),
                 scheduleEntity.getSchedule(),
