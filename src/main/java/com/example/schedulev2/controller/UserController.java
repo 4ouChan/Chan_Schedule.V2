@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> findAllScheduleAPI() {
+    public ResponseEntity<List<UserResponseDto>> findAllUserAPI() {
 
         List<UserResponseDto> allSchedule = userService.findAllSchedule();
 
@@ -37,11 +37,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> findByIdScheduleAPI(@PathVariable Long userId) {
+    public ResponseEntity<UserResponseDto> findByIdUserAPI(@PathVariable Long userId) {
 
         UserResponseDto byIdUser = userService.findByIdUser(userId);
 
         return new ResponseEntity<>(byIdUser, HttpStatus.OK);
     }
+
+
 
 }
