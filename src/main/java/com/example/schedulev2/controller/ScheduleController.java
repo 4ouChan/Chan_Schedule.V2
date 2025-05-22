@@ -1,5 +1,6 @@
 package com.example.schedulev2.controller;
 
+import com.example.schedulev2.dto.CheckPasswordRequestDto;
 import com.example.schedulev2.dto.ScheduleRequestDto;
 import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.dto.UpdateScheduleRequestDto;
@@ -19,6 +20,7 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
+
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createScheduleAPI(@RequestBody ScheduleRequestDto dto) {
 
@@ -28,6 +30,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
 
+
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAllScheduleAPI() {
 
@@ -36,6 +39,7 @@ public class ScheduleController {
         return new ResponseEntity<>(allSchedule, HttpStatus.OK);
     }
 
+
     @GetMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> findByIdScheduleAPI(@PathVariable Long scheduleId) {
 
@@ -43,6 +47,7 @@ public class ScheduleController {
 
         return new ResponseEntity<>(byIdSchedule, HttpStatus.OK);
     }
+
 
     @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateScheduleAPI(
@@ -58,9 +63,9 @@ public class ScheduleController {
 
 
     @DeleteMapping("/{scheduleId}")
-    public ResponseEntity<List<ScheduleResponseDto>> deleteScheduleAPI(@PathVariable Long scheduleId) {
+    public ResponseEntity<List<ScheduleResponseDto>> deleteScheduleAPI(@PathVariable Long scheduleId, @RequestBody CheckPasswordRequestDto dto) {
 
-        List<ScheduleResponseDto> scheduleResponseDto = scheduleService.deleteSchedule(scheduleId);
+        List<ScheduleResponseDto> scheduleResponseDto = scheduleService.deleteSchedule(scheduleId, dto.getPassword());
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }

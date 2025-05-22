@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +48,6 @@ public class ScheduleService {
 
             return responseDto;
         } else {
-
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -85,8 +83,6 @@ public class ScheduleService {
         Optional<ScheduleEntity> findScheduleById = scheduleRepository.findById(scheduleId);
         ScheduleEntity findSchedule = findScheduleById.get();
 
-
-
         if (password.equals(findSchedule.getUserEntity().getPassword())) {
 
             findSchedule.setSchedule(title, schedule);
@@ -107,17 +103,22 @@ public class ScheduleService {
         }
     }
 
-    public List<ScheduleResponseDto> deleteSchedule(Long scheduleId) {
+    public List<ScheduleResponseDto> deleteSchedule(Long scheduleId, String password) {
 
         Optional<ScheduleEntity> findByIdSchedule = scheduleRepository.findById(scheduleId);
 
         ScheduleEntity scheduleEntity = findByIdSchedule.get();
 
-        scheduleRepository.delete(scheduleEntity);
+        if (password.equals(scheduleEntity.getUserEntity().getPassword())) {
 
-        return scheduleRepository.findAll()
-                .stream()
-                .map(ScheduleResponseDto::toScheduleDto)
-                .toList();
+            scheduleRepository.delete(scheduleEntity);
+
+            return scheduleRepository.findAll()
+                    .stream()
+                    .map(ScheduleResponseDto::toScheduleDto)
+                    .toList();
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 }
