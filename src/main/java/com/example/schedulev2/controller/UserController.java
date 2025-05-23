@@ -2,6 +2,7 @@ package com.example.schedulev2.controller;
 
 import com.example.schedulev2.dto.*;
 import com.example.schedulev2.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,14 @@ public class UserController {
         UserResponseDto userResponseDto = userService.createUser(dto.getUserName(), dto.getEmail(), dto.getPassword());
 
         return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginAPI(@RequestBody LoginRequestDto dto, HttpSession session) {
+
+        userService.loginUser(session, dto.getEmail(), dto.getPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
@@ -53,9 +62,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<List<UserResponseDto>> deleteUserAPI(@PathVariable Long userId) {
+    public ResponseEntity<List<UserResponseDto>> deleteUserAPI(@PathVariable Long userId, @RequestBody UserRequestDto dto) {
 
-        List<UserResponseDto> userResponseDtos = userService.deleteUser(userId);
+        List<UserResponseDto> userResponseDtos = userService.deleteUser(userId, dto.getPassword());
 
         return new ResponseEntity<>(userResponseDtos, HttpStatus.OK);
     }

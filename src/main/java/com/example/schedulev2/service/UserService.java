@@ -4,6 +4,7 @@ import com.example.schedulev2.dto.UpdateUserPasswordResponseDto;
 import com.example.schedulev2.dto.UserResponseDto;
 import com.example.schedulev2.entity.UserEntity;
 import com.example.schedulev2.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -81,17 +82,43 @@ public class UserService {
         return updateUserPasswordResponseDto;
     }
 
-    public List<UserResponseDto> deleteUser(Long userId) {
+    public List<UserResponseDto> deleteUser(Long userId, String password) {
 
         Optional<UserEntity> findByIdUser = userRepository.findById(userId);
 
         UserEntity userEntity = findByIdUser.get();
 
-        userRepository.delete(userEntity);
+        if (password.equals(userEntity.getPassword())) {
+            userRepository.delete(userEntity);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+
 
         return userRepository.findAll()
                 .stream()
                 .map(UserResponseDto::toUserDto)
                 .toList();
+    }
+
+    @Transactional
+    public void loginUser(HttpSession session, String email, String password) {
+
+
+        Optional<UserEntity> findByEmail = userRepository.findByEmail(email);
+        UserEntity userEntity = findByEmail.get();
+
+
+        if (email.equals(userEntity.getEmail()) && password.equals(userEntity.getPassword())) {
+
+            session.setAttribute("email", email);
+
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+
+
     }
 }
