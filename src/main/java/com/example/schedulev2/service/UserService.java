@@ -112,7 +112,7 @@ public class UserService {
 
         if (email.equals(userEntity.getEmail()) && password.equals(userEntity.getPassword())) {
 
-            session.setAttribute("email", email);
+            session.setAttribute("userId", userEntity.getUserId());
 
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

@@ -5,6 +5,7 @@ import com.example.schedulev2.entity.ScheduleEntity;
 import com.example.schedulev2.entity.UserEntity;
 import com.example.schedulev2.repository.ScheduleRepository;
 import com.example.schedulev2.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ public class ScheduleService {
         this.userRepository = userRepository;
     }
 
-    public ScheduleResponseDto createSchedule(Long userId, String title, String schedule) {
+    public ScheduleResponseDto createSchedule(HttpSession session, String title, String schedule) {
+
+        Long userId = (Long) session.getAttribute("userId");
 
         Optional<UserEntity> findUser = userRepository.findById(userId);
         UserEntity userEntity = findUser.get();
@@ -38,7 +41,7 @@ public class ScheduleService {
             scheduleRepository.save(createSchedule);
 
             ScheduleResponseDto responseDto = new ScheduleResponseDto(
-                    createSchedule.getUserEntity().getUserId(),
+                    userId,
                     createSchedule.getScheduleId(),
                     createSchedule.getTitle(),
                     createSchedule.getSchedule(),

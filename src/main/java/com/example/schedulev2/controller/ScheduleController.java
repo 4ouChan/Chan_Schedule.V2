@@ -5,6 +5,7 @@ import com.example.schedulev2.dto.ScheduleRequestDto;
 import com.example.schedulev2.dto.ScheduleResponseDto;
 import com.example.schedulev2.dto.UpdateScheduleRequestDto;
 import com.example.schedulev2.service.ScheduleService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,10 @@ public class ScheduleController {
 
 
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> createScheduleAPI(@RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<ScheduleResponseDto> createScheduleAPI(HttpSession session, @RequestBody ScheduleRequestDto dto) {
 
         ScheduleResponseDto scheduleResponseDto =
-                scheduleService.createSchedule(dto.getUserId(), dto.getTitle(), dto.getSchedule());
+                scheduleService.createSchedule(session, dto.getTitle(), dto.getSchedule());
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }

@@ -1,7 +1,6 @@
 package com.example.schedulev2.dto;
 
 import com.example.schedulev2.entity.ScheduleEntity;
-import com.example.schedulev2.entity.UserEntity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
