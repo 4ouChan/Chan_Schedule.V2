@@ -94,8 +94,6 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-
-
         return userRepository.findAll()
                 .stream()
                 .map(UserResponseDto::toUserDto)
@@ -115,7 +113,7 @@ public class UserService {
             session.setAttribute("userId", userEntity.getUserId());
 
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
 
 

@@ -29,7 +29,5 @@ public class UserEntity extends TimeEntity {
         this.password = password;
     }
 
-
-
-
 }
+// 제출

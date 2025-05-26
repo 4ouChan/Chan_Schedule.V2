@@ -51,7 +51,7 @@ public class ScheduleService {
 
             return responseDto;
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
     }

@@ -23,3 +23,4 @@ public abstract class TimeEntity {
     @LastModifiedDate
     private LocalDateTime updateDate;
 }
+// 제출

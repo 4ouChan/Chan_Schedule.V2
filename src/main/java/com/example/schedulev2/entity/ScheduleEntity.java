@@ -39,5 +39,5 @@ public class ScheduleEntity extends TimeEntity {
         this.userEntity = userEntity;
     }
 
-
 }
+// 제출

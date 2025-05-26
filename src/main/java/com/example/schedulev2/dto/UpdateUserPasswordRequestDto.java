@@ -14,3 +14,4 @@ public class UpdateUserPasswordRequestDto {
         this.newUserPassword = newUserPassword;
     }
 }
+// 제출

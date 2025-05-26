@@ -1,6 +1,5 @@
 package com.example.schedulev2.filter;
 
-
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,11 +30,8 @@ public class LoginFilter implements Filter {
             }
         }
 
-
-
         filterChain.doFilter(request, response);
     }
-
 
     private boolean checkWhiteList(String requestURI) {
 
@@ -43,3 +39,4 @@ public class LoginFilter implements Filter {
     }
 
 }
+// 제출
